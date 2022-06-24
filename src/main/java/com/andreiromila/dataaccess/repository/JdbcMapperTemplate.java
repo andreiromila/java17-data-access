@@ -11,6 +11,13 @@ public class JdbcMapperTemplate<T> extends AbstractDao {
 
     @FunctionalInterface
     public interface Mapper<T> {
+        /**
+         * Better implementation of the mapper - use a lambda
+         *
+         * @param resultSet {@link ResultSet} The result set from the database
+         * @return The concrete pojo
+         * @throws SQLException If the mapper cannot 
+         */
         T map(ResultSet resultSet) throws SQLException;
     }
 

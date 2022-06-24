@@ -42,8 +42,7 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
         }
     }
 
-    @Override
-    public List<Book> findAll() {
+    public List<Book> findAllTemplate() {
         JdbcQueryTemplate<Book> template = new JdbcQueryTemplate<>() {
             @Override
             protected Book mapItem(ResultSet results) throws SQLException {
@@ -56,6 +55,19 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
         };
 
         return template.findAll("SELECT id, title, rating FROM book");
+    }
+
+    @Override
+    public List<Book> findAll() {
+        JdbcMapperTemplate<Book> template = new JdbcMapperTemplate<>();
+
+        return template.findAll("SELECT id, title, rating FROM book", results -> {
+            Book book = new Book();
+            book.setId(results.getLong("id"));
+            book.setTitle(results.getString("title"));
+            book.setRating(results.getInt("rating"));
+            return book;
+        });
     }
 
     @Override

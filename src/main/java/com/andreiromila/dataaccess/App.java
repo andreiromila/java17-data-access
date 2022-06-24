@@ -4,6 +4,7 @@ import com.andreiromila.dataaccess.model.Book;
 import com.andreiromila.dataaccess.repository.BookDao;
 import com.andreiromila.dataaccess.repository.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,5 +45,10 @@ public class App {
         System.out.println("Updated book:");
         System.out.println("\t Id: " + updateBook.getId());
         System.out.println("\t Title: " + updateBook.getTitle());
+
+        // Set the rating for every book
+        books.forEach(book -> book.setRating(10));
+        int[] records = repository.update(books);
+        System.out.println(Arrays.toString(records));
     }
 }

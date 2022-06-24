@@ -127,6 +127,38 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
             statement.executeUpdate();
 
             return book;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new RuntimeException(exception.getMessage(), exception);
+        }
+    }
+
+    @Override
+    public int[] update(List<Book> books) {
+
+        final String query = "UPDATE book SET title = ?, rating = ? WHERE id = ? LIMIT 1";
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(query);
+        ) {
+
+            books.forEach(book -> {
+                try {
+
+                    statement.setString(1, book.getTitle());
+                    statement.setInt(2, book.getRating());
+                    statement.setLong(3, book.getId());
+
+                    statement.addBatch();
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e.getMessage(), e);
+                }
+
+            });
+
+            return statement.executeBatch();
 
         } catch (SQLException exception) {
             exception.printStackTrace();

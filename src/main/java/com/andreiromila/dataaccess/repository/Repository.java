@@ -12,4 +12,6 @@ public interface Repository<T, ID> {
     T insert(T t);
 
     T update(T t);
+
+    int[] update(List<T> ts);
 }

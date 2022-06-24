@@ -50,5 +50,12 @@ public class App {
         books.forEach(book -> book.setRating(10));
         int[] records = repository.update(books);
         System.out.println(Arrays.toString(records));
+
+        // Try to remove the book with id 2
+        Book deleteBook = new Book();
+        deleteBook.setId(2L);
+        int affectedRows = repository.delete(deleteBook);
+        System.out.println("Affected rows: " + affectedRows);
+
     }
 }

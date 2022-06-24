@@ -165,4 +165,23 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
             throw new RuntimeException(exception.getMessage(), exception);
         }
     }
+
+    @Override
+    public int delete(Book book) {
+
+        final String query = "DELETE FROM book WHERE id = ? LIMIT 1";
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)
+        ) {
+
+            statement.setLong(1, book.getId());
+            return statement.executeUpdate();
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new RuntimeException(exception.getMessage(), exception);
+        }
+    }
 }

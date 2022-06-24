@@ -26,5 +26,13 @@ public class App {
             System.out.println("\t Id: " + book.getId());
             System.out.println("\t Title: " + book.getTitle());
         });
+
+        // Create a new book
+//        Book insertBook = new Book();
+//        insertBook.setTitle("Reactive Systems in Java: Resilient, Event-Driven Architecture with Quarkus");
+//        insertBook = repository.insert(insertBook);
+//
+//        System.out.println(insertBook.getId());
+//        System.out.println(insertBook.getTitle());
     }
 }

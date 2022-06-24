@@ -9,5 +9,6 @@ public interface Repository<T, ID> {
 
     Optional<T> findById(ID id);
 
+    T save(T t);
 
 }

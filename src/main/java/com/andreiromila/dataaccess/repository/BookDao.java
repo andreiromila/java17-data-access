@@ -37,9 +37,9 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
 
             return books;
 
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            throw new RuntimeException(sqle.getMessage(), sqle);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new RuntimeException(exception.getMessage(), exception);
         }
     }
 
@@ -70,9 +70,40 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
                 return Optional.empty();
             }
 
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            throw new RuntimeException(sqle.getMessage(), sqle);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new RuntimeException(exception.getMessage(), exception);
+        }
+
+    }
+
+    @Override
+    public Book save(Book book) {
+
+        final String sql = "INSERT INTO book (title) VALUES (?)";
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+
+            statement.setString(1, book.getTitle());
+            statement.executeUpdate();
+
+            try (
+                    // This will return the generated keys
+                    ResultSet results = statement.getGeneratedKeys()
+            ) {
+                if (results.next()) {
+                    book.setId(results.getLong(1));
+                }
+            }
+
+            return book;
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new RuntimeException(exception.getMessage(), exception);
         }
 
     }

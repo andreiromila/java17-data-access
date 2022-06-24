@@ -19,14 +19,14 @@ public class App {
             System.out.println("Title: " + book.getTitle());
         });
 
-        System.out.println("\n\n");
-
-        Optional<Book> firstBook = repository.findById(2L);
-        firstBook.ifPresent(book -> {
-            System.out.println("The first book is:");
-            System.out.println("\t Id: " + book.getId());
-            System.out.println("\t Title: " + book.getTitle());
-        });
+//        System.out.println("\n\n");
+//
+//        Optional<Book> firstBook = repository.findById(2L);
+//        firstBook.ifPresent(book -> {
+//            System.out.println("The first book is:");
+//            System.out.println("\t Id: " + book.getId());
+//            System.out.println("\t Title: " + book.getTitle());
+//        });
 
         // Create a new book
 //        Book insertBook = new Book();
@@ -37,25 +37,25 @@ public class App {
 //        System.out.println(insertBook.getTitle());
 
         // Update the boot with id 6
-        Book updateBook = new Book();
-        updateBook.setId(6L);
-        updateBook.setTitle("Effective Java: Third Edition");
-        updateBook = repository.update(updateBook);
-
-        System.out.println("Updated book:");
-        System.out.println("\t Id: " + updateBook.getId());
-        System.out.println("\t Title: " + updateBook.getTitle());
-
-        // Set the rating for every book
-        books.forEach(book -> book.setRating(10));
-        int[] records = repository.update(books);
-        System.out.println(Arrays.toString(records));
-
-        // Try to remove the book with id 2
-        Book deleteBook = new Book();
-        deleteBook.setId(2L);
-        int affectedRows = repository.delete(deleteBook);
-        System.out.println("Affected rows: " + affectedRows);
+//        Book updateBook = new Book();
+//        updateBook.setId(6L);
+//        updateBook.setTitle("Effective Java: Third Edition");
+//        updateBook = repository.update(updateBook);
+//
+//        System.out.println("Updated book:");
+//        System.out.println("\t Id: " + updateBook.getId());
+//        System.out.println("\t Title: " + updateBook.getTitle());
+//
+//        // Set the rating for every book
+//        books.forEach(book -> book.setRating(10));
+//        int[] records = repository.update(books);
+//        System.out.println(Arrays.toString(records));
+//
+//        // Try to remove the book with id 2
+//        Book deleteBook = new Book();
+//        deleteBook.setId(2L);
+//        int affectedRows = repository.delete(deleteBook);
+//        System.out.println("Affected rows: " + affectedRows);
 
     }
 }

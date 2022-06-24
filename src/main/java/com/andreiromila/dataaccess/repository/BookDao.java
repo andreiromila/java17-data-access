@@ -9,8 +9,7 @@ import java.util.Optional;
 
 public class BookDao extends AbstractDao implements Repository<Book, Long> {
 
-    @Override
-    public List<Book> findAll() {
+    public List<Book> findAllBase() {
         final String sql = "SELECT id, title FROM book";
 
         /*
@@ -41,6 +40,22 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
             exception.printStackTrace();
             throw new RuntimeException(exception.getMessage(), exception);
         }
+    }
+
+    @Override
+    public List<Book> findAll() {
+        JdbcQueryTemplate<Book> template = new JdbcQueryTemplate<>() {
+            @Override
+            protected Book mapItem(ResultSet results) throws SQLException {
+                Book book = new Book();
+                book.setId(results.getLong("id"));
+                book.setTitle(results.getString("title"));
+                book.setRating(results.getInt("rating"));
+                return book;
+            }
+        };
+
+        return template.findAll("SELECT id, title, rating FROM book");
     }
 
     @Override

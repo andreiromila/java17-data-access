@@ -34,5 +34,15 @@ public class App {
 //
 //        System.out.println(insertBook.getId());
 //        System.out.println(insertBook.getTitle());
+
+        // Update the boot with id 6
+        Book updateBook = new Book();
+        updateBook.setId(6L);
+        updateBook.setTitle("Effective Java: Third Edition");
+        updateBook = repository.update(updateBook);
+
+        System.out.println("Updated book:");
+        System.out.println("\t Id: " + updateBook.getId());
+        System.out.println("\t Title: " + updateBook.getTitle());
     }
 }

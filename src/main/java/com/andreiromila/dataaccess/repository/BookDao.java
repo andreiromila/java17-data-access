@@ -78,7 +78,7 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
     }
 
     @Override
-    public Book save(Book book) {
+    public Book insert(Book book) {
 
         final String sql = "INSERT INTO book (title) VALUES (?)";
 
@@ -106,5 +106,31 @@ public class BookDao extends AbstractDao implements Repository<Book, Long> {
             throw new RuntimeException(exception.getMessage(), exception);
         }
 
+    }
+
+    @Override
+    public Book update(Book book) {
+
+        if (book.getId() == null) {
+            throw new IllegalArgumentException("The book id is mandatory.");
+        }
+
+        final String query = "UPDATE book SET title = ? WHERE id = ? LIMIT 1";
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)
+        ) {
+
+            statement.setString(1, book.getTitle());
+            statement.setLong(2, book.getId());
+            statement.executeUpdate();
+
+            return book;
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new RuntimeException(exception.getMessage(), exception);
+        }
     }
 }

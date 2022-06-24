@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Book {
 
-    private long id;
+    private Long id;
     private String title;
 
 }

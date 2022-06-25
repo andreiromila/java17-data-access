@@ -16,7 +16,7 @@ public class JdbcMapperTemplate<T> extends AbstractDao {
          *
          * @param resultSet {@link ResultSet} The result set from the database
          * @return The concrete pojo
-         * @throws SQLException If the mapper cannot 
+         * @throws SQLException If the mapper cannot
          */
         T map(ResultSet resultSet) throws SQLException;
     }
